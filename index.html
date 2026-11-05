@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIZ BOÈ 3152 m | Туристи</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background:
+    linear-gradient(rgba(5,15,30,.65),rgba(5,15,30,.85)),
+    url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600")
+    center/cover fixed;
+}
+
+.card {
+  width: 100%;
+  max-width: 650px;
+  padding: 38px 20px;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 22px;
+  background: rgba(10,20,35,.65);
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  font-size: clamp(36px, 9vw, 65px);
+  margin: 10px 0;
+  letter-spacing: 3px;
+}
+
+.altitude {
+  font-size: 22px;
+  color: #cbd5e1;
+}
+
+.date {
+  margin: 24px 0;
+  font-size: 21px;
+  color: #facc15;
+}
+
+.timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  margin: 30px 0;
+}
+
+.unit {
+  padding: 18px 5px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.12);
+}
+
+.number {
+  font-size: clamp(25px, 7vw, 43px);
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #cbd5e1;
+}
+
+.footer {
+  margin-top: 30px;
+  line-height: 1.7;
+  color: #cbd5e1;
+}
+
+@media(max-width: 400px) {
+  .timer { gap: 5px; }
+  .unit { padding: 14px 2px; }
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+  <div style="font-size:35px">🏔️ 🇮🇹</div>
+
+  <h1>PIZ BOÈ</h1>
+
+  <div class="altitude">3152 METERS</div>
+
+  <div class="date">27 JULY 2027 · 08:00</div>
+
+  <div class="timer">
+    <div class="unit">
+      <div class="number" id="days">000</div>
+      <div class="label">ДНІВ</div>
+    </div>
+
+    <div class="unit">
+      <div class="number" id="hours">00</div>
+      <div class="label">ГОДИН</div>
+    </div>
+
+    <div class="unit">
+      <div class="number" id="minutes">00</div>
+      <div class="label">ХВИЛИН</div>
+    </div>
+
+    <div class="unit">
+      <div class="number" id="seconds">00</div>
+      <div class="label">СЕКУНД</div>
+    </div>
+  </div>
+
+  <div id="message" style="font-size:19px">
+    До нашої пригоди залишилося:
+  </div>
+
+  <div class="footer">
+    <strong>ТУРИСТИ З 2023 РОКУ</strong><br>
+    Доломітові Альпи · Італія 🇮🇹<br>
+    Наша перша спільна вершина понад 3000 м
+  </div>
+
+</div>
+
+<script>
+const target = new Date("2027-07-27T08:00:00+02:00").getTime();
+
+function updateCountdown() {
+  const now = Date.now();
+  let diff = target - now;
+
+  if (diff <= 0) {
+    ["days","hours","minutes","seconds"].forEach(id => {
+      document.getElementById(id).textContent = "00";
+    });
+    document.getElementById("message").textContent =
+      "МИ НА PIZ BOÈ! 🏔️";
+    return;
+  }
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  document.getElementById("days").textContent =
+    String(days).padStart(3, "0");
+
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
